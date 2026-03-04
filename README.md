@@ -17,72 +17,71 @@ other co-authors
 
 ```mermaid
 graph TD
-    %% Agents
-    subgraph Agents
-        A1{{Laura}}
-        A2{{Jack}}
-        A3{{Jill}}
-        A4{{Peter}}
-        A5{{Paula}}
-        A6{{Zack}}
-        A7{{Co-authors}}
-    end
+    %% Define Shapes
+    classDef entity fill:#FFD700,stroke:#333,stroke-width:2px,rx:20,ry:20;
+    classDef activity fill:#87CEFA,stroke:#333,stroke-width:2px;
+    classDef agent fill:#FFA07A,stroke:#333,stroke-width:2px;
 
-    %% Entities
-    subgraph Entities
-        E1([Survey v1])
-        E2([Data Collection 1])
-        E3([Survey v2])
-        E4([Data Collection 2])
-        E5([Analysis/Stats])
-        E6([Final Paper])
-        P1[[Survey Plan/Protocol]]
-    end
+    %% Entities (Ovals)
+    sv1([e:Survey V1]):::entity
+    sv2([e:Survey V2]):::entity
+    d1([e:Data 1]):::entity
+    d2([e:Data 2]):::entity
+    comp([e:Compiled Results]):::entity
+    paper([e:Paper]):::entity
 
-    %% Activities
-    ACT1[Design Survey]
-    ACT2[Conduct Survey 1]
-    ACT3[Revise Survey]
-    ACT4[Conduct Survey 2]
-    ACT5[Compile & Analyze]
-    ACT6[Publish Paper]
+    %% Activities (Rectangles)
+    design[a:Design Survey]:::activity
+    cond1[a:Conduct Survey 1]:::activity
+    rev[a:Revise Survey]:::activity
+    cond2[a:Conduct Survey 2]:::activity
+    analyze[a:Compile & Analyze]:::activity
+    pub[a:Publish]:::activity
 
-    %% Relationships
-    
-    %% Design
-    A1 ---|wasAssociatedWith| ACT1
-    ACT1 ---|generated| E1
-    ACT1 ---|followed| P1
+    %% Agents (Pentagons)
+    laura{{ag:Laura}}:::agent
+    jack{{ag:Jack}}:::agent
+    jill{{ag:Jill}}:::agent
+    peter{{ag:Peter}}:::agent
+    paula{{ag:Paula}}:::agent
+    zack{{ag:Zack}}:::agent
+    stat{{ag:Stat Package}}:::agent
+    coauth{{ag:Co-Authors}}:::agent
 
-    %% Survey 1
-    E1 ---|used| ACT2
-    A2 & A3 ---|wasAssociatedWith| ACT2
-    ACT2 ---|generated| E2
-    ACT2 ---|followed| P1
+    %% Use and Generation
+    design -->|generates| sv1
+    cond1 -->|uses| sv1
+    cond1 -->|generates| d1
+    rev -->|uses| sv1
+    rev -->|generates| sv2
+    cond2 -->|uses| sv2
+    cond2 -->|generates| d2
+    analyze -->|uses| d1
+    analyze -->|uses| d2
+    analyze -->|generates| comp
+    pub -->|uses| comp
+    pub -->|generates| paper
 
-    %% Revision
-    E1 ---|used| ACT3
-    A1 ---|wasAssociatedWith| ACT3
-    ACT3 ---|generated| E3
-    E3 -.->|wasRevisionOf| E1
+    %% Revision & Derivation
+    sv2 -.->|wasRevisionOf| sv1
+    comp -.->|wasDerivedFrom| d1
+    comp -.->|wasDerivedFrom| d2
+    paper -.->|wasDerivedFrom| comp
 
-    %% Survey 2
-    E3 ---|used| ACT4
-    A4 & A5 ---|wasAssociatedWith| ACT4
-    ACT4 ---|generated| E4
-    ACT4 ---|followed| P1
-
-    %% Analysis
-    E2 & E4 ---|used| ACT5
-    A6 ---|wasAssociatedWith| ACT5
-    ACT5 ---|generated| E5
-
-    %% Publication
-    E5 ---|used| ACT6
-    A6 & A1 & A7 ---|wasAssociatedWith| ACT6
-    ACT6 ---|generated| E6
-    E6 -.->|wasDerivedFrom| E5
-
+    %% Agents & Plans
+    design -.- laura
+    cond1 -.- jack
+    cond1 -.- jill
+    cond1 -.->|wasAssociatedWith PLAN| sv1
+    rev -.- laura
+    cond2 -.- peter
+    cond2 -.- paula
+    cond2 -.->|wasAssociatedWith PLAN| sv2
+    analyze -.- zack
+    analyze -.- stat
+    pub -.- zack
+    pub -.- laura
+    pub -.- coauth
 ```
 
 ---
