@@ -90,4 +90,4 @@ graph TD
 * **`LICENSE`**: This project is licensed under MIT License.
 * **`CITATION.cff`**: Citation information.
 * **`codemeta.json`**: Metadata about the software (just as an exercise).
-* 
+* **`DOI`**: https://doi.org/10.5281/zenodo.18868387
