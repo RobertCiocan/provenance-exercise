@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "Exercise: cite is list this:"
+authors:
+  - family-names: Ciocan
+    given-names: Stefan-Robert
+title: "Practical Exercise"
+version: 1.0.0
+date-released: 2026-03-04
