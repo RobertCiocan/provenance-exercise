@@ -1,0 +1,60 @@
+document
+  prefix ex <http://example.org/>
+  prefix prov <http://www.w3.org/ns/prov#>
+
+  entity(ex:SurveyV1, [prov:type='prov:Plan'])
+  entity(ex:Data1)
+  entity(ex:SurveyV2, [prov:type='prov:Plan'])
+  entity(ex:Data2)
+  entity(ex:CompiledResults)
+  entity(ex:Paper)
+
+  activity(ex:DesignSurvey)
+  activity(ex:ConductSurvey1)
+  activity(ex:ReviseSurvey)
+  activity(ex:ConductSurvey2)
+  activity(ex:CompileAnalyze)
+  activity(ex:Publish)
+
+  agent(ex:Laura, [prov:type='prov:Person'])
+  agent(ex:Jack, [prov:type='prov:Person'])
+  agent(ex:Jill, [prov:type='prov:Person'])
+  agent(ex:Peter, [prov:type='prov:Person'])
+  agent(ex:Paula, [prov:type='prov:Person'])
+  agent(ex:Zack, [prov:type='prov:Person'])
+  agent(ex:StatPackage, [prov:type='prov:SoftwareAgent'])
+  agent(ex:CoAuthors, [prov:type='prov:Organization'])
+
+  wasGeneratedBy(ex:SurveyV1, ex:DesignSurvey, -)
+  wasGeneratedBy(ex:Data1, ex:ConductSurvey1, -)
+  wasGeneratedBy(ex:SurveyV2, ex:ReviseSurvey, -)
+  wasGeneratedBy(ex:Data2, ex:ConductSurvey2, -)
+  wasGeneratedBy(ex:CompiledResults, ex:CompileAnalyze, -)
+  wasGeneratedBy(ex:Paper, ex:Publish, -)
+
+  used(ex:ConductSurvey1, ex:SurveyV1, -)
+  used(ex:ReviseSurvey, ex:SurveyV1, -)
+  used(ex:ConductSurvey2, ex:SurveyV2, -)
+  used(ex:CompileAnalyze, ex:Data1, -)
+  used(ex:CompileAnalyze, ex:Data2, -)
+  used(ex:Publish, ex:CompiledResults, -)
+
+  wasAssociatedWith(ex:DesignSurvey, ex:Laura, -)
+  wasAssociatedWith(ex:ConductSurvey1, ex:Jack, ex:SurveyV1)
+  wasAssociatedWith(ex:ConductSurvey1, ex:Jill, ex:SurveyV1)
+  wasAssociatedWith(ex:ReviseSurvey, ex:Laura, -)
+  wasAssociatedWith(ex:ConductSurvey2, ex:Peter, ex:SurveyV2)
+  wasAssociatedWith(ex:ConductSurvey2, ex:Paula, ex:SurveyV2)
+  wasAssociatedWith(ex:CompileAnalyze, ex:Zack, -)
+  wasAssociatedWith(ex:CompileAnalyze, ex:StatPackage, -)
+  wasAssociatedWith(ex:Publish, ex:Zack, -)
+  wasAssociatedWith(ex:Publish, ex:Laura, -)
+  wasAssociatedWith(ex:Publish, ex:CoAuthors, -)
+
+  wasRevisionOf(ex:SurveyV2, ex:SurveyV1, -, -, -)
+  wasDerivedFrom(ex:Data2, ex:SurveyV2, -, -, -)
+  wasDerivedFrom(ex:CompiledResults, ex:Data1, -, -, -)
+  wasDerivedFrom(ex:CompiledResults, ex:Data2, -, -, -)
+  wasDerivedFrom(ex:Paper, ex:CompiledResults, -, -, -)
+
+endDocument
